@@ -1,5 +1,9 @@
 # Civic Interconnect P-Tag Schemas
 
+[![Version](https://img.shields.io/badge/version-v0.1.0-blue)](https://github.com/civic-interconnect/.github/releases)
+[![License: CC BY 4.0](https://img.shields.io/badge/license-CC--BY--4.0-green.svg)](https://creativecommons.org/licenses/by/4.0/)
+
+
 This repository provides JSON Schemas for machine-readable provenance tags ("PTags") used across Civic Interconnect.
 
 -   `ptag.core.schema.json` - minimal, PROV-aligned schema for software, tools, and specs
