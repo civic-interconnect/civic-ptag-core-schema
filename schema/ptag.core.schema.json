@@ -1,0 +1,115 @@
+{
+  "$id": "https://raw.githubusercontent.com/civic-interconnect/civic-ptag-core-schema/main/schema/ptag.core.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Civic Interconnect P-Tag (Core)",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "$schema": { "type": "string" },
+    "prefix": {
+      "type": "object",
+      "description": "Namespace prefixes; must include prov.",
+      "properties": {
+        "prov": { "type": "string", "const": "http://www.w3.org/ns/prov#" }
+      },
+      "required": ["prov"],
+      "additionalProperties": true
+    },
+    "entity": {
+      "type": "object",
+      "minProperties": 1,
+      "description": "PROV entities keyed by CURIE-like identifiers.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "prov:label": { "type": "string" },
+          "type": { "type": "string" },
+          "license": { "type": "string" },
+          "releaseTag": { "type": "string" }
+        },
+        "required": ["prov:label", "type"],
+        "additionalProperties": true
+      }
+    },
+    "agent": {
+      "type": "object",
+      "description": "PROV agents (persons, orgs).",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "prov:type": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string" }
+        },
+        "required": ["prov:type"],
+        "additionalProperties": true
+      }
+    },
+    "activity": {
+      "type": "object",
+      "minProperties": 1,
+      "description": "PROV activities (builds, publishes).",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "prov:label": { "type": "string" },
+          "prov:startedAtTime": { "type": "string" },
+          "prov:endedAtTime": { "type": "string" },
+          "reproCommand": { "type": "string" }
+        },
+        "required": ["prov:label"],
+        "additionalProperties": true
+      }
+    },
+    "wasGeneratedBy": {
+      "type": "object",
+      "description": "Entity -> Activity relationships.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "prov:entity": { "type": "string" },
+          "prov:activity": { "type": "string" }
+        },
+        "required": ["prov:entity", "prov:activity"],
+        "additionalProperties": true
+      }
+    },
+    "wasAttributedTo": {
+      "type": "object",
+      "description": "Entity -> Agent relationships.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "prov:entity": { "type": "string" },
+          "prov:agent": { "type": "string" }
+        },
+        "required": ["prov:entity", "prov:agent"],
+        "additionalProperties": true
+      }
+    },
+    "used": {
+      "type": "object",
+      "description": "Activity -> Entity input relationships.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "prov:activity": { "type": "string" },
+          "prov:entity": { "type": "string" }
+        },
+        "required": ["prov:activity", "prov:entity"],
+        "additionalProperties": true
+      }
+    }
+  },
+  "required": ["prefix", "entity", "activity", "wasGeneratedBy", "wasAttributedTo"],
+  "examples": [
+    {
+      "prefix": { "prov": "http://www.w3.org/ns/prov#" },
+      "entity": { "entity:pkg": { "prov:label": "civic-lib-core", "type": "software", "license": "MIT", "releaseTag": "v0.9.11" } },
+      "agent": { "agent:maintainer": { "prov:type": "prov:Person", "name": "Denise Case" } },
+      "activity": { "activity:release": { "prov:label": "Release build", "reproCommand": "uv build && uv publish" } },
+      "wasGeneratedBy": { "_:g1": { "prov:entity": "entity:pkg", "prov:activity": "activity:release" } },
+      "wasAttributedTo": { "_:a1": { "prov:entity": "entity:pkg", "prov:agent": "agent:maintainer" } }
+    }
+  ]
+}

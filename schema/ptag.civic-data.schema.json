@@ -1,0 +1,64 @@
+{
+  "$id": "https://raw.githubusercontent.com/civic-interconnect/civic-ptag-core-schema/main/schema/ptag.civic-data.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Civic Interconnect P-Tag (Civic-Data Profile)",
+  "allOf": [
+    { "$ref": "https://raw.githubusercontent.com/civic-interconnect/civic-ptag-core-schema/main/schema/ptag.core.schema.json" }
+  ],
+  "type": "object",
+  "properties": {
+    "entity": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "prov:label": { "type": "string" },
+          "type": { "type": "string", "enum": ["dataset", "application", "software", "source", "specification"] },
+          "license": { "type": "string" },
+          "rights": { "type": "string" },
+          "releaseTag": { "type": "string" },
+          "checksum": { "type": "string" },
+          "doi": { "type": "string" },
+          "prov:location": { "type": "string" },
+          "civic:domain": { "type": "string", "enum": ["elections", "health", "education", "climate", "transport", "housing"] },
+          "civic:stateCode": { "type": "string" },
+          "civic:layer": { "type": "string" },
+          "civic:buildVersion": { "type": "string" }
+        },
+        "required": ["prov:label", "type"],
+        "additionalProperties": true
+      }
+    },
+    "activity": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "prov:label": { "type": "string" },
+          "reproCommand": { "type": "string" },
+          "civic:geoAdapter": { "type": "string" },
+          "civic:csvAdapter": { "type": "string" },
+          "prov:startedAtTime": { "type": "string" },
+          "prov:endedAtTime": { "type": "string" }
+        },
+        "required": ["prov:label"],
+        "additionalProperties": true
+      }
+    },
+    "used": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "prov:activity": { "type": "string" },
+          "prov:entity": { "type": "string" }
+        },
+        "required": ["prov:activity", "prov:entity"],
+        "additionalProperties": true
+      }
+    }
+  },
+  "required": ["entity", "activity"]
+}

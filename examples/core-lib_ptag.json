@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/civic-interconnect/civic-ptag-core-schema/main/schema/ptag.core.schema.json",
+  "prefix": { "prov": "http://www.w3.org/ns/prov#", "civic": "https://civicinterconnect.org/ns#" },
+  "entity": {
+    "entity:civic_lib_core": { "prov:label": "civic-lib-core", "type": "software", "license": "MIT", "releaseTag": "v0.9.11" }
+  },
+  "agent": { "agent:maintainer": { "prov:type": "prov:Person", "name": "Denise Case" } },
+  "activity": {
+    "activity:release": { "prov:label": "Release build", "reproCommand": "uv build && uv publish" }
+  },
+  "wasGeneratedBy": { "_:g1": { "prov:entity": "entity:civic_lib_core", "prov:activity": "activity:release" } },
+  "wasAttributedTo": { "_:a1": { "prov:entity": "entity:civic_lib_core", "prov:agent": "agent:maintainer" } }
+}

@@ -1,0 +1,62 @@
+# .github/workflows/validate.yml
+name: Validate PTag Schemas and Examples
+
+# CI PHASES A-B-C-D:
+# - Assemble: Install dependencies, verify environment setup
+# - Baseline: Core validation (types exist, lint passes, tests pass)
+# - Coverage: Generate reports and upload artifacts
+# - Deploy: Build package and docs (sanity checks for release readiness)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      # ------------------- ASSEMBLE -------------------
+
+      - name: A1) Checkout repository
+        uses: actions/checkout@v5
+
+      - name: A2) Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: A3) Install ajv-cli
+        run: npm install -g ajv-cli
+
+      # ------------------- BASELINE CHECKS -------------------
+
+      - name: B1) Validate core example
+        run: |
+          npx ajv-cli validate --spec=draft2020 \
+            -s schema/ptag.core.schema.json \
+            -d examples/core-lib_ptag.json
+
+      - name: B2) Validate civic-data example
+        run: |
+          npx ajv-cli validate --spec=draft2020 \
+            -r schema/ptag.core.schema.json \
+            -s schema/ptag.civic-data.schema.json \
+            -d examples/civic-data_dataset_ptag.json
+
+      - name: B3) Validate privacy example
+        run: |
+          npx ajv-cli validate --spec=draft2020 --strict=false \
+            -s schema/ptag.privacy.schema.json \
+            -d examples/privacy_ptag.json

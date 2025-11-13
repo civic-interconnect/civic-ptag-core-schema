@@ -1,0 +1,41 @@
+{
+  "$schema": "https://raw.githubusercontent.com/civic-interconnect/civic-ptag-core-schema/main/schema/ptag.civic-data.schema.json",
+  "prefix": { "prov": "http://www.w3.org/ns/prov#", "civic": "https://civicinterconnect.org/ns#" },
+  "entity": {
+    "entity:mn_precincts_v2025_04": {
+      "prov:label": "Minnesota precincts (v2025-04)",
+      "type": "dataset",
+      "license": "CC-BY-4.0",
+      "rights": "References official geometry; original SoS site lacks explicit open license.",
+      "releaseTag": "v2025-04",
+      "checksum": "sha256:REPLACE",
+      "doi": "10.5281/zenodo.REPLACE",
+      "civic:domain": "elections",
+      "civic:stateCode": "MN",
+      "civic:layer": "precincts",
+      "civic:buildVersion": "2025-04"
+    },
+    "entity:source_mn_sos": {
+      "prov:label": "MN SoS – Voting Precincts",
+      "type": "source",
+      "prov:location": "https://www.sos.mn.gov/media/2791/mn-precincts.json"
+    }
+  },
+  "agent": { "agent:maintainer": { "prov:type": "prov:Person", "name": "Denise Case" } },
+  "activity": {
+    "activity:build_2025_04": {
+      "prov:label": "MN precincts build 2025-04",
+      "reproCommand": "uv run civic-geo-generator build MN precincts --version 2025-04",
+      "civic:geoAdapter": "mn_precincts@0.9.0"
+    }
+  },
+  "used": {
+    "_:u1": { "prov:activity": "activity:build_2025_04", "prov:entity": "entity:source_mn_sos" }
+  },
+  "wasGeneratedBy": {
+    "_:g1": { "prov:entity": "entity:mn_precincts_v2025_04", "prov:activity": "activity:build_2025_04" }
+  },
+  "wasAttributedTo": {
+    "_:a1": { "prov:entity": "entity:mn_precincts_v2025_04", "prov:agent": "agent:maintainer" }
+  }
+}

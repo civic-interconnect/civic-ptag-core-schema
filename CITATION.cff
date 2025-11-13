@@ -1,0 +1,66 @@
+cff-version: 1.2.0
+message: "If you use these schemas, please cite this repository."
+title: "Civic Interconnect PTag Core Schemas"
+authors:
+  - family-names: Case
+    given-names: Denise
+    affiliation: Civic Interconnect
+version: "0.1.0"
+date-released: 2025-11-12
+license: "CC-BY-4.0"
+repository-code: "https://github.com/civic-interconnect/civic-ptag-core-schema"
+
+abstract: >
+  JSON Schemas for machine-readable provenance tags ("PTags") used across
+  Civic Interconnect. The core schema is aligned with W3C PROV and provides
+  basic entities, activities, and agents for software, datasets, and tools.
+  The civic-data profile adds domain-specific fields for civic datasets and
+  data pipelines (elections, health, education, climate, etc.), and a privacy
+  profile will support privacy-preserving provenance. All schemas are designed
+  to be composable, JSON Schema-based, and automation-friendly for reproducible
+  civic data workflows.
+
+keywords:
+  - provenance
+  - json-schema
+  - civic data
+  - elections
+  - transparency
+  - reproducible research
+  - open metadata
+
+preferred-citation:
+  type: software
+  authors:
+    - family-names: Case
+      given-names: Denise
+      affiliation: Civic Interconnect
+  title: "Civic Interconnect PTag Core Schemas"
+  year: 2025
+  version: "0.1.0"
+  url: "https://github.com/civic-interconnect/civic-ptag-core-schema"
+
+references:
+  - type: standard
+    title: "JSON Schema"
+    authors:
+      - family-names: Bray
+        given-names: Tim
+      - family-names: Hollander
+        given-names: David
+      - family-names: Sporny
+        given-names: Manu
+    publisher: "IETF"
+    year: 2020
+    url: "https://json-schema.org/"
+
+  - type: standard
+    title: "PROV-O: The PROV Ontology"
+    authors:
+      - family-names: Moreau
+        given-names: Luc
+      - family-names: Missier
+        given-names: Paolo
+    publisher: "W3C"
+    year: 2013
+    url: "https://www.w3.org/TR/prov-o/"
